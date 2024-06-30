@@ -1,2 +1,2 @@
-namespace DistributeCache;
+namespace Wrench.DistributedCache;
 
