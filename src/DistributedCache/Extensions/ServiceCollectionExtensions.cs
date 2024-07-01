@@ -1,8 +1,8 @@
 using Microsoft.Extensions.DependencyInjection;
-using Wrench.Services.DistributedCache;
-using Wrench.Interfaces.DistributedCache;
+using Wrench.DistributedCache.Services;
+using Wrench.DistributedCache.Interfaces;
 
-namespace Wrench.Extensions.DistributedCache;
+namespace Wrench.DistributedCache.Extensions;
 
 
 public static class ServiceCollectionExtensions

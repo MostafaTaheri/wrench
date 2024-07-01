@@ -4,9 +4,9 @@ using System.Text.Json;
 using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Caching.Distributed;
-using Wrench.Interfaces.DistributedCache;
+using Wrench.DistributedCache.Interfaces;
 
-namespace Wrench.Services.DistributedCache;
+namespace Wrench.DistributedCache.Services;
 
 public sealed class WrenchDistributedWrapper : IWrenchDistributedCache
 {
