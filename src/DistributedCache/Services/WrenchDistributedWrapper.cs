@@ -4,8 +4,9 @@ using System.Text.Json;
 using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Caching.Distributed;
+using Wrench.Interfaces.DistributedCache;
 
-namespace Wrench.DistributedCache;
+namespace Wrench.Services.DistributedCache;
 
 public sealed class WrenchDistributedWrapper : IWrenchDistributedCache
 {
@@ -32,25 +33,38 @@ public sealed class WrenchDistributedWrapper : IWrenchDistributedCache
 
     public async Task<T?> GetOrSetAsync<T>(string key, Func<T> getItemCallBack, TimeSpan absoluteExpiration, CancellationToken token = default)
     {
-        var data = await _distributedCache.GetAsync(key: key, token: token);
+        var data = await _distributedCache.GetAsync(key: key);
 
-        if (data is null)
+        if (data != null)
             return JsonSerializer.Deserialize<T>(Encoding.UTF8.GetString(data));
 
         var newData = getItemCallBack();
 
         if (newData != null)
         {
-
+            await SetAsync(key: key, data: newData, absoluteExpiration: absoluteExpiration, token: token);
+            return newData;
         }
 
-
-
+        return default;
     }
 
-    public Task<T?> GetOrSetAsync<T>(string key, Func<Task<T>> getItemCallBack, TimeSpan absoluteExpiration, CancellationToken token = default)
+    public async Task<T?> GetOrSetAsync<T>(string key, Func<Task<T>> getItemCallBack, TimeSpan absoluteExpiration, CancellationToken token = default)
     {
-        throw new NotImplementedException();
+        var data = await _distributedCache.GetAsync(key: key);
+
+        if (data != null)
+            return JsonSerializer.Deserialize<T>(Encoding.UTF8.GetString(data));
+
+        var newData = await getItemCallBack();
+
+        if (newData != null)
+        {
+            await SetAsync(key: key, data: newData, absoluteExpiration: absoluteExpiration, token: token);
+            return newData;
+        }
+
+        return default;
     }
 
     public bool HasData(string key)
@@ -58,18 +72,24 @@ public sealed class WrenchDistributedWrapper : IWrenchDistributedCache
         return _distributedCache.Get(key: key) != null ? true : false;
     }
 
-    public Task RefreshAsync(string key, CancellationToken token = default)
+    public async Task RefreshAsync(string key, CancellationToken token = default)
     {
-        throw new NotImplementedException();
+        await _distributedCache.RefreshAsync(key: key, token: token);
     }
 
     public void Set(string key, object data, TimeSpan absoluteExpiration)
     {
-        throw new NotImplementedException();
+        var serializedData = JsonSerializer.SerializeToUtf8Bytes(data);
+        var options = new DistributedCacheEntryOptions().SetAbsoluteExpiration(absoluteExpiration);
+
+        _distributedCache.Set(key: key, value: serializedData, options: options);
     }
 
-    public Task SetAsync(string key, object data, TimeSpan absoluteExpiration, CancellationToken token = default)
+    public async Task SetAsync(string key, object data, TimeSpan absoluteExpiration, CancellationToken token = default)
     {
-        throw new NotImplementedException();
+        var serializedData = JsonSerializer.SerializeToUtf8Bytes(data);
+        var options = new DistributedCacheEntryOptions().SetAbsoluteExpiration(absoluteExpiration);
+
+        await _distributedCache.SetAsync(key: key, value: serializedData, options: options, token: token);
     }
 }
