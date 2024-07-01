@@ -2,7 +2,7 @@ using System;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace Wrench.DistributedCache;
+namespace Wrench.Interfaces.DistributedCache;
 
 public interface IWrenchDistributedCache
 {
