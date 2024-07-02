@@ -11,6 +11,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StreamTransaction", "src\St
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Scheduler.Abstraction", "src\Scheduler.Abstraction\Scheduler.Abstraction.csproj", "{254464EB-E8DA-4108-BE72-8E099CD20660}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BackgroundFire", "src\BackgroundFire\BackgroundFire.csproj", "{9E595B6E-C3CF-4F04-BFD0-4F1EEAC4DB31}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -32,10 +34,15 @@ Global
 		{254464EB-E8DA-4108-BE72-8E099CD20660}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{254464EB-E8DA-4108-BE72-8E099CD20660}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{254464EB-E8DA-4108-BE72-8E099CD20660}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9E595B6E-C3CF-4F04-BFD0-4F1EEAC4DB31}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9E595B6E-C3CF-4F04-BFD0-4F1EEAC4DB31}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9E595B6E-C3CF-4F04-BFD0-4F1EEAC4DB31}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9E595B6E-C3CF-4F04-BFD0-4F1EEAC4DB31}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{A35D0F71-A5ED-486F-AAE6-2E95B7047547} = {D7AB3330-BEE0-43D3-854F-70490F0F2F0C}
 		{EB3455BA-6F1D-4EEE-9997-C1303725B05E} = {D7AB3330-BEE0-43D3-854F-70490F0F2F0C}
 		{254464EB-E8DA-4108-BE72-8E099CD20660} = {D7AB3330-BEE0-43D3-854F-70490F0F2F0C}
+		{9E595B6E-C3CF-4F04-BFD0-4F1EEAC4DB31} = {D7AB3330-BEE0-43D3-854F-70490F0F2F0C}
 	EndGlobalSection
 EndGlobal
